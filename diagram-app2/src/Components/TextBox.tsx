@@ -25,8 +25,7 @@ function TextBox({ data, isConnectable}) {
         // style={handleStyle}
         isConnectable={isConnectable}
       />
-      <div width="500px" height="500px" border-radius= "50%" background-color= "#3d9970"/>
-      <input name="text" onChange={onChange} defaultValue={"textbox"} width="100%"/>
+      <input name="text" onChange={onChange} defaultValue={"textbox"} />
       <Handle
         type="target"
         position={Position.Left}

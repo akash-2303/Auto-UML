@@ -21,7 +21,7 @@ function Actor({ data, isConnectable, selected }) {
         // style={handleStyle}
         isConnectable={isConnectable}
       />
-      <img src={Actor_img} className="img-fluid" alt="Actor" height="100%" width="100%" object-fit:fill/><br/>
+      <img src={Actor_img} className="img-fluid" alt="Actor"/><br/>
       <Handle
         type="target"
         position={Position.Left}

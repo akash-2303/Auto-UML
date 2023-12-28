@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import ReactFlow, {ReactFlowProvider,useReactFlow} from 'reactflow';
 import 'reactflow/dist/style.css';
+import actor_img from "../assets/Actor.png"
 
 let nodeId = 0;
 let typeMap = {"spawntext":"textbox","spawnactor":"actor"}
@@ -27,10 +28,10 @@ export default function Flow() {
   return (
     <>
       <button onClick={onClick("spawntext")} className="btn-add">
-        add Text Box
+        <b><i>T</i></b>
       </button>
       <button onClick={onClick("spawnactor")} className="btn-add">
-        add Actor
+        <img src = {actor_img} className="button-img"/>
       </button>
     </>
   );

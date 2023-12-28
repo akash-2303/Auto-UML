@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 }
+
+input{
+  z-index :4;
+  background-color:rgba(255,255,255,0);
+  width:100%;
+  object-fit: cover;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.img-fluid {
+  z-index : 3;
+  height:100%;
+  width : 100%;
+  object-fit : cover;
+}
+
+.button-img{
+  width:10px;
+  height:12px;
+  object-fit: cover;
+}
