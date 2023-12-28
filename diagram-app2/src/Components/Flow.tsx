@@ -1,62 +1,37 @@
-import { useCallback } from 'react';
-import ReactFlow, { ReactFlowProvider, useReactFlow } from 'reactflow';
+import { useCallback, useState } from 'react';
+import ReactFlow, {ReactFlowProvider,useReactFlow} from 'reactflow';
 import 'reactflow/dist/style.css';
 
-import defaultNodes from './nodes.js';
-import defaultEdges from './edges.js';
-
-
-const edgeOptions = {
-  animated: true,
-  style: {
-    stroke: 'white',
-  },
-};
-
-const connectionLineStyle = { stroke: 'white' };
-
 let nodeId = 0;
+let typeMap = {"spawntext":"textbox","spawnactor":"actor"}
 
-function Flow() {
+export default function Flow() {
   const reactFlowInstance = useReactFlow();
-  const onClick = useCallback(() => {
-    const id = `${++nodeId}`;
+  const onClick = (id) => useCallback(() => {
+    const Nid = `${++nodeId}`;
     const newNode = {
-      id,
+      id: Nid,
       position: {
-        x: Math.random() * 500,
-        y: Math.random() * 500,
+        x: Math.random()*100,
+        y: Math.random()*100,
       },
       data: {
-        label: `Node ${id}`,
+        label: `Node ${Nid}`,
       },
+       type : typeMap[id]
     };
     reactFlowInstance.addNodes(newNode);
+    
   }, []);
 
   return (
     <>
-      <ReactFlow
-        defaultNodes={defaultNodes}
-        defaultEdges={defaultEdges}
-        defaultEdgeOptions={edgeOptions}
-        fitView
-        style={{
-          backgroundColor: '#D3D2E5',
-        }}
-        connectionLineStyle={connectionLineStyle}
-      />
-      <button onClick={onClick} className="btn-add">
-        add node
+      <button onClick={onClick("spawntext")} className="btn-add">
+        add Text Box
+      </button>
+      <button onClick={onClick("spawnactor")} className="btn-add">
+        add Actor
       </button>
     </>
-  );
-}
-
-export default function () {
-  return (
-    <ReactFlowProvider>
-      <Flow />
-    </ReactFlowProvider>
   );
 }

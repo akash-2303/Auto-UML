@@ -1,5 +1,5 @@
-import ReactFlow,{ ReactFlowProvider } from "reactflow";
-import Flow2 from "./Components/Flow2";
+import ReactFlow,{ ReactFlowProvider,Controls } from "reactflow";
+import Flow from "./Components/Flow";
 import TextBox from './Components/TextBox';
 import Actor from "./Components/Actor";
 const rfStyle = {
@@ -36,8 +36,7 @@ function App() {
         nodeTypes={nodeTypes}
       />
       
-      <Flow2/>
-      
+      <Flow/>  
     </div>
     </ReactFlowProvider>
   );

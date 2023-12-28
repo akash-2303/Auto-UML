@@ -1,15 +1,17 @@
 import { useCallback } from "react";
-import { Handle, Position } from "reactflow";
+import { Handle, Position,NodeResizer } from "reactflow";
+import { memo } from 'react';
 
 const handleStyle = { left: 10 };
 
-function TextBox({ data, isConnectable }) {
+function TextBox({ data, isConnectable}) {
   const onChange = useCallback((evt: any) => {
     console.log(evt.target.value);
   }, []);
 
   return (
-    <div className="text-updater-node">
+    <>
+      <NodeResizer minWidth={100} minHeight={30} />
       <Handle
         id = "a"
         type="target"
@@ -23,9 +25,8 @@ function TextBox({ data, isConnectable }) {
         // style={handleStyle}
         isConnectable={isConnectable}
       />
-      <div >
-        <input id="text" name="text" onChange={onChange} className="nodrag" defaultValue={"textbox"}/>
-      </div>
+      <div width="500px" height="500px" border-radius= "50%" background-color= "#3d9970"/>
+      <input name="text" onChange={onChange} defaultValue={"textbox"} width="100%"/>
       <Handle
         type="target"
         position={Position.Left}
@@ -40,8 +41,8 @@ function TextBox({ data, isConnectable }) {
         id="d"
         isConnectable={isConnectable}
       />
-    </div>
+    </>
   );
 }
 
-export default TextBox;
+export default memo(TextBox);

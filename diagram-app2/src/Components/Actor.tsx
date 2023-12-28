@@ -1,12 +1,13 @@
-import { Handle, Position } from "reactflow";
+import { Handle, Position,NodeResizer } from "reactflow";
 import Actor_img from "../assets/Actor.png"
-
+import { memo } from "react";
 const handleStyle = { left: 10 };
 
-function Actor({ data, isConnectable }) {
+function Actor({ data, isConnectable, selected }) {
 
   return (
-    <div className="text-updater-node">
+    <>
+      <NodeResizer color="#ff0071" isVisible={selected}/>
       <Handle
         id= "a"
         type="target"
@@ -20,10 +21,7 @@ function Actor({ data, isConnectable }) {
         // style={handleStyle}
         isConnectable={isConnectable}
       />
-      <div >
-        <img src={Actor_img} className="img-fluid" alt="Actor"/><br/>
-        <input id="text" name="text" className="nodrag" defaultValue={"Actor"}/>
-      </div>
+      <img src={Actor_img} className="img-fluid" alt="Actor" height="100%" width="100%" object-fit:fill/><br/>
       <Handle
         type="target"
         position={Position.Left}
@@ -38,8 +36,8 @@ function Actor({ data, isConnectable }) {
         id="d"
         isConnectable={isConnectable}
       />
-    </div>
+    </>
   );
 }
 
-export default Actor;
+export default memo(Actor);
