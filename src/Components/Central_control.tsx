@@ -12,19 +12,24 @@ import actor_img from "../assets/Actor.png";
 import TextBox from "./TextBox";
 import Actor from "./Actor";
 
+import axios from "axios";
+
+// Loading config file
+import config from "../config.json";
+
 const rfStyle = {
-    backgroundColor: '#B8CEFF',
-  };
-  
+  backgroundColor: "#B8CEFF",
+};
+
 const defaultViewport = { x: 0, y: 0, zoom: 1.5, fitView: true };
-  
+
 const edgeOptions = {
-    animated: true,
-    style: {
-      stroke: 'white',
-    },
-  };
-const connectionLineStyle = { stroke: 'white' };
+  animated: true,
+  style: {
+    stroke: "white",
+  },
+};
+const connectionLineStyle = { stroke: "white" };
 const flowKey = "example-flow";
 let typeMap = { TextBox, Actor };
 
@@ -43,20 +48,54 @@ const Central_control = () => {
   const onSave = useCallback(() => {
     if (rfInstance) {
       const flow = rfInstance.toObject();
-      localStorage.setItem(flowKey, JSON.stringify(flow));
+      fetch(
+        config["SERVER_CONFIG"]["SERVER_URL"] + "/save_session?session_id=123",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({ graph: flow }),
+        }
+      )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      // localStorage.setItem(flowKey, JSON.stringify(flow));
+      console.log(localStorage.getItem(flowKey));
     }
   }, [rfInstance]);
 
   const onRestore = useCallback(() => {
     const restoreFlow = async () => {
-      const flow = JSON.parse(localStorage.getItem(flowKey));
-
-      if (flow) {
-        const { x = 0, y = 0, zoom = 1 } = flow.viewport;
-        setNodes(flow.nodes || []);
-        setEdges(flow.edges || []);
-        setViewport({ x, y, zoom });
-      }
+      fetch(
+        config["SERVER_CONFIG"]["SERVER_URL"] + "/get_session?session_id=123",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((flow) => {
+          flow = flow.graph;
+          if (flow) {
+            const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+            setNodes(flow.nodes || []);
+            setEdges(flow.edges || []);
+            setViewport({ x, y, zoom });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
     restoreFlow();
@@ -84,7 +123,7 @@ const Central_control = () => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       fitView
-      style={{ backgroundColor: '#D3D2E5',}}
+      style={{ backgroundColor: "#D3D2E5" }}
       defaultViewport={defaultViewport}
       connectionLineStyle={connectionLineStyle}
       nodeTypes={typeMap}
