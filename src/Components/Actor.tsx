@@ -1,15 +1,14 @@
-import { Handle, Position,NodeResizer } from "reactflow";
-import Actor_img from "../assets/Actor.png"
+import { Handle, Position, NodeResizer } from "reactflow";
+import Actor_img from "../assets/Actor.png";
 import { memo } from "react";
 const handleStyle = { left: 10 };
 
 function Actor({ data, isConnectable, selected }) {
-
   return (
     <>
-      <NodeResizer color="#ff0071" isVisible={selected}/>
+      <NodeResizer color="#ff0071" isVisible={selected} />
       <Handle
-        id= "a"
+        id="a"
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
@@ -21,7 +20,9 @@ function Actor({ data, isConnectable, selected }) {
         // style={handleStyle}
         isConnectable={isConnectable}
       />
-      <img src={Actor_img} className="img-fluid" alt="Actor"/><br/>
+      <label htmlFor="text">{data.label}</label>
+      <img src={Actor_img} className="img-fluid" alt="Actor" />
+      <br />
       <Handle
         type="target"
         position={Position.Left}
@@ -29,7 +30,7 @@ function Actor({ data, isConnectable, selected }) {
         // style={handleStyle}
         isConnectable={isConnectable}
       />
-      
+
       <Handle
         type="source"
         position={Position.Bottom}

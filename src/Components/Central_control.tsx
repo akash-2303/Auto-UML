@@ -12,8 +12,6 @@ import actor_img from "../assets/Actor.png";
 import TextBox from "./TextBox";
 import Actor from "./Actor";
 
-import axios from "axios";
-
 // Loading config file
 import config from "../config.json";
 
@@ -30,7 +28,6 @@ const edgeOptions = {
   },
 };
 const connectionLineStyle = { stroke: "white" };
-const flowKey = "example-flow";
 let typeMap = { TextBox, Actor };
 
 const getNodeId = (type) => `${type}_${+new Date()}`;
@@ -66,9 +63,6 @@ const Central_control = () => {
         .catch((err) => {
           console.log(err);
         });
-
-      // localStorage.setItem(flowKey, JSON.stringify(flow));
-      console.log(localStorage.getItem(flowKey));
     }
   }, [rfInstance]);
 
