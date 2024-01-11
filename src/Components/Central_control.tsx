@@ -48,6 +48,7 @@ const Central_control = () => {
   const onSave = useCallback(() => {
     if (rfInstance) {
       const flow = rfInstance.toObject();
+      console.log(flow);
       fetch(
         config["SERVER_CONFIG"]["SERVER_URL"] + "/save_session?session_id=123",
         {
@@ -85,6 +86,7 @@ const Central_control = () => {
       )
         .then((res) => res.json())
         .then((flow) => {
+          console.log(flow);
           flow = flow.graph;
           if (flow) {
             const { x = 0, y = 0, zoom = 1 } = flow.viewport;
