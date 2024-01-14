@@ -9,8 +9,10 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import actor_img from "../assets/Actor.png";
+import oval_png from "../assets/oval.png"
 import TextBox from "./TextBox";
 import Actor from "./Actor";
+import Oval from "./Oval";
 
 // Loading config file
 import config from "../config.json";
@@ -28,7 +30,7 @@ const edgeOptions = {
   },
 };
 const connectionLineStyle = { stroke: "white" };
-let typeMap = { TextBox, Actor };
+let typeMap = { TextBox, Actor,Oval };
 
 const getNodeId = (type) => `${type}_${+new Date()}`;
 
@@ -135,6 +137,9 @@ const Central_control = () => {
         </button>
         <button onClick={AddNode("Actor")} className="btn-add">
           <img src={actor_img} className="button-img" />
+        </button>
+        <button onClick={AddNode("Oval")} className="btn-add">
+          <img src={oval_png} className="button-img" />
         </button>
       </Panel>
     </ReactFlow>
