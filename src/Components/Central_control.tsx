@@ -9,10 +9,11 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import actor_img from "../assets/Actor.png";
-import oval_png from "../assets/oval.png"
+import oval_png from "../assets/oval.png";
 import TextBox from "./TextBox";
 import Actor from "./Actor";
 import Oval from "./Oval";
+import { Button } from "react-bootstrap";
 
 // Loading config file
 import config from "../config.json";
@@ -30,7 +31,7 @@ const edgeOptions = {
   },
 };
 const connectionLineStyle = { stroke: "white" };
-let typeMap = { TextBox, Actor,Oval };
+let typeMap = { TextBox, Actor, Oval };
 
 const getNodeId = (type) => `${type}_${+new Date()}`;
 
@@ -128,19 +129,29 @@ const Central_control = () => {
       onInit={setRfInstance}
     >
       <Panel position="top-right">
-        <button onClick={onSave}>save</button>
-        <button onClick={onRestore}>restore</button>
-        <button onClick={AddNode("TextBox")} className="btn-add">
-          <b>
+        <div className="d-md-flex p-3">
+          <Button onClick={onSave} className="btn-success m-2">
+            Save
+          </Button>
+          <Button onClick={onRestore} className="btn-primary m-2">
+            Restore
+          </Button>
+          <Button
+            onClick={AddNode("TextBox")}
+            className="btn-add m-2 btn-warning"
+          >
             <i>T</i>
-          </b>
-        </button>
-        <button onClick={AddNode("Actor")} className="btn-add">
-          <img src={actor_img} className="button-img" />
-        </button>
-        <button onClick={AddNode("Oval")} className="btn-add">
-          <img src={oval_png} className="button-img" />
-        </button>
+          </Button>
+          <Button
+            onClick={AddNode("Actor")}
+            className="btn-add btn-warning m-2"
+          >
+            <img src={actor_img} className="button-img" />
+          </Button>
+          <Button onClick={AddNode("Oval")} className="btn-add m-2 btn-warning">
+            <img src={oval_png} className="button-img" />
+          </Button>
+        </div>
       </Panel>
     </ReactFlow>
   );
