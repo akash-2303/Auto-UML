@@ -4,7 +4,7 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div id="root">
+    <div>
       <div className="card">
         <h2>Login</h2>
         <form action="/login" method="POST">

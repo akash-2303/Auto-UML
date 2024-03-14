@@ -1,29 +1,16 @@
-import ReactFlow, { ReactFlowProvider, Controls } from "reactflow";
-import Central_control from "./Components/Central_control";
-import UserForm from "./Components/UserForm";
+import { BrowserRouter , Routes, Route } from 'react-router-dom';
+import Login from './Components/login'
+import Signup from './Components/signup';
 
 function App() {
-  return (
-    <ReactFlowProvider>
-      <div className="center">
-        <div className="row justify-content-center">
-          <h2>
-            Auto UML - <i>Automatic UML Diagram Generator</i>
-          </h2>
-        </div>
-        <div className="row mt-5">
-          <UserForm />
-        </div>
-        <div className="row mt-5">
-          <div
-            style={{ width: "100%", height: "580px", padding: "0px" }}
-            className="main_container"
-          >
-            <Central_control />
-          </div>
-        </div>
-      </div>
-    </ReactFlowProvider>
-  );
+    return (
+      <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                </Routes>
+      </BrowserRouter>
+    );
 }
+
 export default App;
