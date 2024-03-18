@@ -5,9 +5,39 @@ import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate('/blank-page');
+  // const handleLogin = () => {
+  //   navigate('/blank-page');
+  // };
+  //AB change start
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try{
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email_id: username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      //navigating to blank page
+      navigate('/blank-page');
+
+    } catch (error) {
+      setError('Login failed');
+    }
+      
   };
+
   return (
     <div>
       <div className="card">

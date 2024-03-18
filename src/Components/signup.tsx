@@ -1,18 +1,56 @@
 // Signup.js
 
-import React from 'react';
+import React, { useState } from 'react';
 
-const Signup = () => {
+// const Signup = () => {
+//   const [username, setUsername] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [confirmPassword, setConfirmPassword] = useState('');
+//   const [error, setError] = useState('');
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (password !== confirmPassword) {
+//       setError('Passwords do not match');
+//       return;
+//     }
+
+//     try{
+//       const response = await fetch('/register', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ email_id: username, password }),
+//       });
+
+//       if (!response.ok) {
+//         throw new Error('Sign up failed');
+//       }
+
+//       setUsername('');
+//       // setEmail('');
+//       setPassword('');
+//       setConfirmPassword('');
+//       setError('');
+
+//     } catch (error) {
+//       setError('Signup failed');
+//     }
+//   };
+
   return (
     <div>
       <div className="card">
         <h2>Sign Up</h2>
-        <form action="/signup" method="POST">
+        <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username:</label>
           <input type="text" id="username" name="username" required /><br /><br />
 
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required /><br /><br />
+          {/* <label htmlFor="email">Email:</label> */}
+          {/* <input type="email" id="email" name="email" required /><br /><br /> */}
 
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" name="password" required /><br /><br />
