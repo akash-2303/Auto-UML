@@ -2,44 +2,44 @@
 
 import React, { useState } from 'react';
 
-// const Signup = () => {
-//   const [username, setUsername] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-//   const [error, setError] = useState('');
+const Signup = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-//     if (password !== confirmPassword) {
-//       setError('Passwords do not match');
-//       return;
-//     }
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
 
-//     try{
-//       const response = await fetch('/register', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ email_id: username, password }),
-//       });
+    try{
+      const response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email_id: username, password }),
+      });
 
-//       if (!response.ok) {
-//         throw new Error('Sign up failed');
-//       }
+      if (!response.ok) {
+        throw new Error('Sign up failed');
+      }
 
-//       setUsername('');
-//       // setEmail('');
-//       setPassword('');
-//       setConfirmPassword('');
-//       setError('');
+      setUsername('');
+      // setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setError('');
 
-//     } catch (error) {
-//       setError('Signup failed');
-//     }
-//   };
+    } catch (error) {
+      setError('Signup failed');
+    }
+  };
 
   return (
     <div>

@@ -1,6 +1,7 @@
 // Login.js
 
 import React from 'react';
+import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
@@ -43,7 +44,7 @@ const Login = () => {
       <div className="card">
         <h2>Login</h2>
         {/* <form onSubmit={handleLogin}> */}
-        <form action="/blank-page" method="POST">
+        <form action="/home" method="POST">
           <label htmlFor="username">Username:</label>
           <input type="text" id="username" name="username" required /><br /><br />
 
