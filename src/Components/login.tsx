@@ -1,15 +1,8 @@
-// Login.js
-
-import React from 'react';
-import { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
-  // const handleLogin = () => {
-  //   navigate('/blank-page');
-  // };
-  //AB change start
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,43 +10,55 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-      const response = await fetch('/login', {
+    try {
+      const response = await fetch('/authenticate', { // Make sure the URL matches the backend route
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email_id: username, password }),
+        body: JSON.stringify({ email_id: username, password }), // Use the correct keys as expected by the backend
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error('Login failed');
+        throw new Error(data.Message || 'Login failed');
       }
 
-      //navigating to blank page
+      // If login is successful, navigate to the target page
       navigate('/blank-page');
-
     } catch (error) {
-      setError('Login failed');
+      setError(error.message || 'Login failed');
     }
-      
   };
 
   return (
     <div>
       <div className="card">
         <h2>Login</h2>
-        {/* <form onSubmit={handleLogin}> */}
-        <form action="/home" method="POST">
+        <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" required /><br /><br />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          /><br /><br />
 
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required /><br /><br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          /><br /><br />
 
-          <input type="submit" value="Log In" />
+          <button type="submit">Log In</button>
+          {error && <p>{error}</p>}
         </form>
-        {/* </form> */}
       </div>
     </div>
   );
