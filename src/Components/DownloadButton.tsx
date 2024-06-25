@@ -1,5 +1,8 @@
+import React from 'react';
+import { Button } from 'react-bootstrap';
 import { useReactFlow } from 'reactflow';
 import { toPng } from 'html-to-image';
+import downloadIcon from '../assets/downloadbutton.png'; // Ensure this is the correct path to your image
 
 function downloadImage(dataUrl) {
   const a = document.createElement('a');
@@ -13,7 +16,7 @@ function downloadImage(dataUrl) {
 const imageWidth = 1024;
 const imageHeight = 768;
 
-function DownloadButton() {
+const DownloadButton = () => {
   const { getNodes, project } = useReactFlow();
 
   const onClick = async () => {
@@ -21,7 +24,6 @@ function DownloadButton() {
       const nodes = getNodes();
       const nodePositions = nodes.map(node => ({ ...node, position: project(node.position) }));
 
-      // Convert node positions to a PNG
       const dataUrl = await toPng(document.querySelector('.react-flow__viewport'), {
         backgroundColor: '#ffffff',
         width: imageWidth,
@@ -35,10 +37,10 @@ function DownloadButton() {
   };
 
   return (
-    <button onClick={onClick} style={{ position: 'absolute', right: 20, top: 20 }}>
-      Download Image
-    </button>
+    <Button onClick={onClick} className="m-2">
+      <img src={downloadIcon} alt="Download Diagram" className="button-img" />
+    </Button>
   );
-}
+};
 
 export default DownloadButton;

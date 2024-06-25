@@ -18,7 +18,7 @@ function Home() {
           <div style={{ width: "100%", height: "580px" }} className="main_container">
             <Central_control />
             <Controls />
-            <DownloadButton />  
+            
           </div>
         </div>
       </div>

@@ -15,6 +15,8 @@ import Actor from "./Actor";
 import Oval from "./Oval";
 import { Button } from "react-bootstrap";
 
+import DownloadButton from './DownloadButton';
+
 // Loading config file
 import config from "../config.json";
 
@@ -151,6 +153,7 @@ const Central_control = () => {
           <Button onClick={AddNode("Oval")} className="btn-add m-2 btn-warning">
             <img src={oval_png} className="button-img" />
           </Button>
+          <DownloadButton />
         </div>
       </Panel>
     </ReactFlow>
