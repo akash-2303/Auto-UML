@@ -1,6 +1,5 @@
-// Signup.js
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -36,6 +35,9 @@ const Signup = () => {
       setConfirmPassword('');
       setError('');
 
+      // If sign up is successful, navigate to the target page
+      navigate('/login');
+
     } catch (error) {
       setError('Signup failed');
     }
@@ -59,7 +61,9 @@ const Signup = () => {
           <input type="password" id="confirmPassword" name="confirmPassword" required /><br /><br />
 
           <input type="submit" value="Sign Up" />
+          {error && <p className="error">{error}</p>}
         </form>
+        <button onClick={() => navigate('/login')} className="link-button">Already have an account? Log in</button>
       </div>
     </div>
   );

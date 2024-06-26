@@ -11,12 +11,12 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/authenticate', { // Make sure the URL matches the backend route
+      const response = await fetch('/authenticate', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email_id: username, password }), // Use the correct keys as expected by the backend
+        body: JSON.stringify({ email_id: username, password }), 
       });
 
       const data = await response.json();
@@ -59,6 +59,7 @@ const Login = () => {
           <button type="submit">Log In</button>
           {error && <p>{error}</p>}
         </form>
+        <button onClick={() => navigate('/signup')} className="link-button">Don't have an account? Sign up</button>
       </div>
     </div>
   );
