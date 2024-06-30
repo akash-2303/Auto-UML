@@ -8,9 +8,13 @@ function Home() {
   return (
     <ReactFlowProvider>
       <div className="center">
-        <div className="row justify-content-center">
-          <h2>Auto UML - <i>Automatic UML Diagram Generator</i></h2>
+        <div className="header">
+          <h1 className="title">Auto UML</h1>
+          <h2 className="subtitle animate__animated animate__fadeIN animate__delay-2s">Automatic UML Diagram Generator</h2>
         </div>
+        {/* <div className="row justify-content-center">
+          <h2>Auto UML - <i>Automatic UML Diagram Generator</i></h2>
+        </div> */}
         <div className="row mt-5">
           <UserForm />
         </div>
