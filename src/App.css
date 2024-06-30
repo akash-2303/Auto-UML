@@ -82,14 +82,21 @@ input {
 }
 
 
-
 body, html {
+  height: 100%;  
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #6a11cb, #2575fc);  
+  color: #ffffff;  
+}
+
+/* body, html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f9;
   color: #333;
-}
+} */
 
 input, button {
   padding: 10px;
@@ -135,6 +142,20 @@ label {
 }
 
 .card {
+  background: #fff;  
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;  
+}
+
+.card:hover {
+  transform: translateY(-5px);  
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);  
+}
+
+
+/* .card {
   background: white;
   padding: 2em;
   margin: 2rem auto;
@@ -143,4 +164,4 @@ label {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-radius: 8px;
   border: none;
-}
+} */
