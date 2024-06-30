@@ -7,7 +7,7 @@ import { Form } from "react-bootstrap";
 // Loading config file
 import config from "../config.json";
 
-export default function UserForm() {
+export default function UserForm(props: any) {
   const [input, setInput] = useState("");
   return (
     <div className="d-md-flex justify-content-center">
@@ -38,7 +38,16 @@ export default function UserForm() {
               }
             )
               .then((res) => {
-                console.log(res);
+                return res.json();
+              })
+              .then((flow: any) => {
+                flow = flow.graph;
+                if (flow) {
+                  const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+                  props.setNodes(flow.nodes || []);
+                  props.setEdges(flow.edges || []);
+                  props.setViewport({ x, y, zoom });
+                }
               })
               .catch((err) => {
                 console.log(err);

@@ -15,7 +15,7 @@ import Actor from "./Actor";
 import Oval from "./Oval";
 import { Button } from "react-bootstrap";
 
-import DownloadButton from './DownloadButton';
+import DownloadButton from "./DownloadButton";
 
 // Loading config file
 import config from "../config.json";
@@ -37,19 +37,15 @@ let typeMap = { TextBox, Actor, Oval };
 
 const getNodeId = (type) => `${type}_${+new Date()}`;
 
-const Central_control = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [rfInstance, setRfInstance] = useState(null);
-  const { setViewport } = useReactFlow();
-
+function Central_control(props: any) {
+  console.log(props);
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
+    (params) => props.setEdges((eds) => addEdge(params, eds)),
+    [props.setEdges]
   );
   const onSave = useCallback(() => {
-    if (rfInstance) {
-      const flow = rfInstance.toObject();
+    if (props.rfInstance) {
+      const flow = props.rfInstance.toObject();
       console.log(flow);
       fetch(
         config["SERVER_CONFIG"]["SERVER_URL"] + "/save_session?session_id=123",
@@ -69,7 +65,7 @@ const Central_control = () => {
           console.log(err);
         });
     }
-  }, [rfInstance]);
+  }, [props.rfInstance]);
 
   const onRestore = useCallback(() => {
     const restoreFlow = async () => {
@@ -88,10 +84,10 @@ const Central_control = () => {
           console.log(flow);
           flow = flow.graph;
           if (flow) {
-            const { x = 0, y = 0, zoom = 1 } = flow.viewport;
-            setNodes(flow.nodes || []);
-            setEdges(flow.edges || []);
-            setViewport({ x, y, zoom });
+            console.log(props.nodes);
+            props.setNodes(flow.nodes);
+            props.setEdges(flow.edges);
+            props.setViewport(flow.viewport || defaultViewport);
           }
         })
         .catch((err) => {
@@ -100,7 +96,7 @@ const Central_control = () => {
     };
 
     restoreFlow();
-  }, [setNodes, setViewport]);
+  }, [props.setNodes, props.setViewport]);
 
   const AddNode = (type) =>
     useCallback(() => {
@@ -113,55 +109,56 @@ const Central_control = () => {
         },
         type: type,
       };
-      setNodes((nds) => nds.concat(newNode));
-    }, [setNodes]);
+      props.setNodes((nds) => nds.concat(newNode));
+    }, [props.setNodes]);
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      fitView
-      style={{ backgroundColor: "#D3D2E5" }}
-      defaultViewport={defaultViewport}
-      connectionLineStyle={connectionLineStyle}
-      nodeTypes={typeMap}
-      onInit={setRfInstance}
-    >
-      <Panel position="top-right">
-        <div className="d-md-flex p-3">
-          <Button onClick={onSave} className="btn-success m-2">
-            Save
-          </Button>
-          <Button onClick={onRestore} className="btn-primary m-2">
-            Restore
-          </Button>
-          <Button
-            onClick={AddNode("TextBox")}
-            className="btn-add m-2 btn-warning"
-          >
-            <i>T</i>
-          </Button>
-          <Button
-            onClick={AddNode("Actor")}
-            className="btn-add btn-warning m-2"
-          >
-            <img src={actor_img} className="button-img" />
-          </Button>
-          <Button onClick={AddNode("Oval")} className="btn-add m-2 btn-warning">
-            <img src={oval_png} className="button-img" />
-          </Button>
-          <DownloadButton />
-        </div>
-      </Panel>
-    </ReactFlow>
+    <ReactFlowProvider>
+      <ReactFlow
+        nodes={props.nodes}
+        edges={props.edges}
+        onNodesChange={props.onNodesChange}
+        onEdgesChange={props.onEdgesChange}
+        onConnect={onConnect}
+        fitView
+        style={{ backgroundColor: "#D3D2E5" }}
+        defaultViewport={defaultViewport}
+        connectionLineStyle={connectionLineStyle}
+        nodeTypes={typeMap}
+        onInit={props.setRfInstance}
+      >
+        <Panel position="top-right">
+          <div className="d-md-flex p-3">
+            <Button onClick={onSave} className="btn-success m-2">
+              Save
+            </Button>
+            <Button onClick={onRestore} className="btn-primary m-2">
+              Restore
+            </Button>
+            <Button
+              onClick={AddNode("TextBox")}
+              className="btn-add m-2 btn-warning"
+            >
+              <i>T</i>
+            </Button>
+            <Button
+              onClick={AddNode("Actor")}
+              className="btn-add btn-warning m-2"
+            >
+              <img src={actor_img} className="button-img" />
+            </Button>
+            <Button
+              onClick={AddNode("Oval")}
+              className="btn-add m-2 btn-warning"
+            >
+              <img src={oval_png} className="button-img" />
+            </Button>
+            <DownloadButton />
+          </div>
+        </Panel>
+      </ReactFlow>
+    </ReactFlowProvider>
   );
-};
+}
 
-export default () => (
-  <ReactFlowProvider>
-    <Central_control />
-  </ReactFlowProvider>
-);
+export default Central_control;
