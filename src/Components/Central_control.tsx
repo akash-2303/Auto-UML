@@ -1,10 +1,7 @@
-import React, { useState, useCallback } from "react";
+import { useCallback } from "react";
 import ReactFlow, {
   ReactFlowProvider,
-  useNodesState,
-  useEdgesState,
   addEdge,
-  useReactFlow,
   Panel,
 } from "reactflow";
 import "reactflow/dist/style.css";
@@ -20,27 +17,27 @@ import DownloadButton from "./DownloadButton";
 // Loading config file
 import config from "../config.json";
 
-const rfStyle = {
-  backgroundColor: "#B8CEFF",
-};
+// const rfStyle = {
+//   backgroundColor: "#B8CEFF",
+// };
 
 const defaultViewport = { x: 0, y: 0, zoom: 1.5, fitView: true };
 
-const edgeOptions = {
-  animated: true,
-  style: {
-    stroke: "white",
-  },
-};
+// const edgeOptions = {
+//   animated: true,
+//   style: {
+//     stroke: "white",
+//   },
+// };
 const connectionLineStyle = { stroke: "white" };
 let typeMap = { TextBox, Actor, Oval };
 
-const getNodeId = (type) => `${type}_${+new Date()}`;
+const getNodeId = (type:string) => `${type}_${+new Date()}`;
 
 function Central_control(props: any) {
   console.log(props);
   const onConnect = useCallback(
-    (params) => props.setEdges((eds) => addEdge(params, eds)),
+    (params: any) => props.setEdges((eds: any) => addEdge(params, eds)),
     [props.setEdges]
   );
   const onSave = useCallback(() => {
@@ -98,7 +95,7 @@ function Central_control(props: any) {
     restoreFlow();
   }, [props.setNodes, props.setViewport]);
 
-  const AddNode = (type) =>
+  const AddNode = (type: any) =>
     useCallback(() => {
       const newNode = {
         id: getNodeId(type),
@@ -109,7 +106,7 @@ function Central_control(props: any) {
         },
         type: type,
       };
-      props.setNodes((nds) => nds.concat(newNode));
+      props.setNodes((nds: any) => nds.concat(newNode));
     }, [props.setNodes]);
 
   return (

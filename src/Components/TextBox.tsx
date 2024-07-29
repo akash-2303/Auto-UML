@@ -1,11 +1,20 @@
-import { useCallback } from "react";
-import { Handle, Position,NodeResizer } from "reactflow";
-import { memo } from 'react';
+import { useCallback, memo } from "react";
+import { Handle, Position, NodeResizer } from "reactflow";
 
-const handleStyle = { left: 10 };
+// Define the type for the 'data' prop
+interface Data {
+  // Example property, adjust according to actual usage
+  text: string;
+}
 
-function TextBox({ data, isConnectable}) {
-  const onChange = useCallback((evt: any) => {
+// Define the type for the component's props
+interface TextBoxProps {
+  data: Data;
+  isConnectable: boolean;
+}
+
+function TextBox({ data, isConnectable }: TextBoxProps) {
+  const onChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
     console.log(evt.target.value);
   }, []);
 
@@ -13,7 +22,7 @@ function TextBox({ data, isConnectable}) {
     <>
       <NodeResizer minWidth={100} minHeight={30} />
       <Handle
-        id = "a"
+        id="a"
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
@@ -22,15 +31,13 @@ function TextBox({ data, isConnectable}) {
         type="source"
         position={Position.Right}
         id="b"
-        // style={handleStyle}
         isConnectable={isConnectable}
       />
-      <input name="text" onChange={onChange} defaultValue={"textbox"} />
+      <input name="text" onChange={onChange} defaultValue={data.text} />
       <Handle
         type="target"
         position={Position.Left}
         id="c"
-        // style={handleStyle}
         isConnectable={isConnectable}
       />
       

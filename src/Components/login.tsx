@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -7,7 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
@@ -27,7 +27,13 @@ const Login = () => {
       // If login is successful, navigate to the target page
       navigate('/blank-page');
     } catch (error) {
-      setError(error.message || 'Login failed');
+      // First, ensure 'error' is an instance of Error.
+      if (error instanceof Error) {
+        setError(error.message || 'Login failed');
+      } else {
+        // If it's not an Error instance, handle it as a generic error.
+        setError('An unexpected error occurred');
+      }
     }
   };
 
@@ -66,3 +72,4 @@ const Login = () => {
 };
 
 export default Login;
+
