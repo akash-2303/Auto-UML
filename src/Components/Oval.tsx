@@ -1,9 +1,22 @@
 import { Handle, Position, NodeResizer } from "reactflow";
-import Actor_img from "../assets/Actor.png";
-import { memo } from "react";
-const handleStyle = { left: 10 };
+// import Actor_img from "../assets/Actor.png";
+import { FC, memo } from "react";
 
-function Oval({ data, isConnectable, selected }) {
+interface Data {
+  label: string;
+  // Add other properties of 'data' here
+}
+
+// Define the type for the component's props
+interface OvalProps {
+  data: Data;
+  isConnectable: boolean;
+  selected: boolean;
+}
+
+// const handleStyle = { left: 10 };
+
+const Oval: FC<OvalProps> = ({ data, isConnectable, selected }) => {
   return (
     <>
       <NodeResizer color="#ff0071" isVisible={selected} />
@@ -21,7 +34,7 @@ function Oval({ data, isConnectable, selected }) {
         isConnectable={isConnectable}
       />
       <label htmlFor="text">{data.label}</label>
-      <div id = "oval"/>
+      <div id="oval" />
       <br />
       <Handle
         type="target"
@@ -39,6 +52,11 @@ function Oval({ data, isConnectable, selected }) {
       />
     </>
   );
-}
+};
 
 export default memo(Oval);
+
+
+
+
+

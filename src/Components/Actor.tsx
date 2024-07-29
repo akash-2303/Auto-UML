@@ -1,9 +1,15 @@
 import { Handle, Position, NodeResizer } from "reactflow";
 import Actor_img from "../assets/Actor.png";
 import { memo } from "react";
-const handleStyle = { left: 10 };
+// const handleStyle = { left: 10 };
 
-function Actor({ data, isConnectable, selected }) {
+interface ActorProps {
+  data: any; // Consider defining a more specific type for data
+  isConnectable: boolean;
+  selected: boolean;
+}
+
+function Actor({ data, isConnectable, selected }: ActorProps) {
   return (
     <>
       <NodeResizer color="#ff0071" isVisible={selected} />
@@ -42,3 +48,4 @@ function Actor({ data, isConnectable, selected }) {
 }
 
 export default memo(Actor);
+

@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import ReactFlow, {
+  ReactFlowInstance,
   ReactFlowProvider,
   useNodesState,
   useEdgesState,
@@ -20,31 +21,31 @@ import DownloadButton from './DownloadButton';
 // Loading config file
 import config from "../config.json";
 
-const rfStyle = {
-  backgroundColor: "#B8CEFF",
-};
+// const rfStyle = {
+//   backgroundColor: "#B8CEFF",
+// };
 
 const defaultViewport = { x: 0, y: 0, zoom: 1.5, fitView: true };
 
-const edgeOptions = {
-  animated: true,
-  style: {
-    stroke: "white",
-  },
-};
+// const edgeOptions = {
+//   animated: true,
+//   style: {
+//     stroke: "white",
+//   },
+// };
 const connectionLineStyle = { stroke: "white" };
 let typeMap = { TextBox, Actor, Oval };
 
-const getNodeId = (type) => `${type}_${+new Date()}`;
+const getNodeId = (type:string) => `${type}_${+new Date()}`;
 
 const Central_control = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [rfInstance, setRfInstance] = useState(null);
+  const [rfInstance, setRfInstance] = useState<ReactFlowInstance | null>(null);
   const { setViewport } = useReactFlow();
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params:any) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
   const onSave = useCallback(() => {
@@ -102,7 +103,7 @@ const Central_control = () => {
     restoreFlow();
   }, [setNodes, setViewport]);
 
-  const AddNode = (type) =>
+  const AddNode = (type: any) =>
     useCallback(() => {
       const newNode = {
         id: getNodeId(type),
